@@ -7,9 +7,21 @@ public class MyMouseAdapter extends MouseAdapter {
     private int offsetX, offsetY;
     public void mouseDragged(MouseEvent e){
         SwingUtilities.getRoot((Component)e.getSource()).setLocation(e.getXOnScreen()-offsetX, e.getYOnScreen()-offsetY);
+        TestBody.cgJLabelImg(TestBody.imgLabel, "kabi_drag1.png");
+    }
+    public void mouseReleased(MouseEvent e){
+        TestBody.cgJLabelImg(TestBody.imgLabel, "kabi_default.png");
     }
     public void mousePressed(MouseEvent e){
         offsetX = e.getX();
         offsetY = e.getY();
+    }
+    public void mouseEntered(MouseEvent e){
+        TestBody.loveLabel.setVisible(true);
+        TestBody.hungryLabel.setVisible(true);
+    }
+    public void mouseExited(MouseEvent e){
+        TestBody.loveLabel.setVisible(false);
+        TestBody.hungryLabel.setVisible(false);
     }
 }

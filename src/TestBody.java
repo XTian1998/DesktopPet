@@ -1,19 +1,53 @@
+import pets.Pet;
+
 import java.awt.*;
 import javax.swing.*;
 
 public class TestBody extends JFrame {
-    public String imgDic = "./image/";
+    public static String imgDic = "./image/";
+    public static String imgUrl = "_default.png";
+    public static JLabel loveLabel;
+    public static JLabel hungryLabel;
+    public static JLabel imgLabel = new JLabel();
+    private static Pet mypet;
     public TestBody(){
-        this.setSize(100,100);
+        this.setSize(160,135);
         this.getContentPane().setLayout(null);
-        this.setTitle("测试动画");
+        this.setTitle("电子宠物");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        mypet = new Pet("kabi", 1, 0, 0);
 
-        //动画承载体
-        JLabel jLabel = new JLabel();
-        //初始化第一张图
-        this.cgJLabelImg(jLabel, "kabi_default.png");
-        this.add(jLabel);
+        //初始化图
+        this.cgJLabelImg(imgLabel, mypet.getName() + imgUrl);
+        this.add(imgLabel);
+
+        //添加亲密度信息
+        loveLabel = new JLabel("亲密度: " + mypet.getLove_now()+"/"+mypet.getLove_max());
+        loveLabel.setForeground(Color.BLACK);
+        loveLabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
+        loveLabel.setBounds(20,100,120,20);
+        loveLabel.setVisible(false);
+        this.add(loveLabel);
+
+        //添加饱食度信息
+        hungryLabel = new JLabel("饱食度: " + mypet.getHungry_now()+"/"+mypet.getHungry_max());
+        hungryLabel.setForeground(Color.BLUE);
+        hungryLabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
+        hungryLabel.setBounds(20,115,120,20);
+        hungryLabel.setVisible(false);
+        this.add(hungryLabel);
+
+        //信息更新线程
+        new Thread(() -> {
+            try{
+                Thread.sleep(2000);
+                loveLabel.setText("亲密度: " + mypet.getLove_now()+"/"+mypet.getLove_max());
+                hungryLabel.setText("饱食度: " + mypet.getHungry_now()+"/"+mypet.getHungry_max());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }).start();
+
         //框体透明
         this.setUndecorated(true); //取消窗口标题栏
         this.setBackground(new Color(0,0,0,0)); //背景透明
@@ -26,7 +60,7 @@ public class TestBody extends JFrame {
         this.setVisible(true);
     }
 
-    private void cgJLabelImg(JLabel jLabel, String imgUrl){
+    public static void cgJLabelImg(JLabel jLabel, String imgUrl){
         ImageIcon icon = new ImageIcon(imgDic + imgUrl);
         int picWidth = icon.getIconWidth();
         int picHeight = icon.getIconHeight();
