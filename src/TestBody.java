@@ -6,10 +6,12 @@ import javax.swing.*;
 public class TestBody extends JFrame {
     public static String imgDic = "./image/";
     public static String imgUrl = "_default.png";
+    public static String trayIconName = "sysIcon.png";
     public static JLabel loveLabel;
     public static JLabel hungryLabel;
     public static JLabel imgLabel = new JLabel();
     private static Pet mypet;
+
     public TestBody(){
         this.setSize(160,135);
         this.getContentPane().setLayout(null);
@@ -56,6 +58,7 @@ public class TestBody extends JFrame {
         MyMouseAdapter adapter = new MyMouseAdapter();
         this.addMouseMotionListener(adapter);
         this.addMouseListener(adapter);
+        setTray();
 
         this.setVisible(true);
     }
@@ -67,6 +70,36 @@ public class TestBody extends JFrame {
         icon.setImage(icon.getImage().getScaledInstance(picWidth, picHeight, Image.SCALE_DEFAULT));
         jLabel.setBounds(0,0,picWidth,picHeight);
         jLabel.setIcon(icon);
+    }
+
+    private void setTray(){
+        //任务栏托盘图标显示和功能添加
+        if(SystemTray.isSupported()){
+            SystemTray tray = SystemTray.getSystemTray();
+
+            PopupMenu popMenu = new PopupMenu();
+
+            MenuItem itemExit = new MenuItem("退出");
+            itemExit.addActionListener(e -> System.exit(0));
+
+            /*
+            * 其他菜单栏功能在此处添加
+            * */
+
+            popMenu.add(itemExit);
+
+            ImageIcon icon = new ImageIcon(imgDic + trayIconName);
+            Image img = icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT);
+
+            TrayIcon trayIcon = new TrayIcon(img, "桌面萌王", popMenu);
+            trayIcon.setImageAutoSize(true);
+
+            try{
+                tray.add(trayIcon);
+            }catch(AWTException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void main(String[] args){
