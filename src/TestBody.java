@@ -42,15 +42,8 @@ public class TestBody extends JFrame {
         this.add(hungryLabel);
 
         //信息更新线程
-        new Thread(() -> {
-            try{
-                Thread.sleep(2000);
-                loveLabel.setText("亲密度: " + mypet.getLove_now()+"/"+mypet.getLove_max());
-                hungryLabel.setText("饱食度: " + mypet.getHungry_now()+"/"+mypet.getHungry_max());
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }).start();
+        InfoUpdateThread iut = new InfoUpdateThread(this);
+        iut.start();
 
         //框体透明
         this.setUndecorated(true); //取消窗口标题栏
@@ -87,9 +80,9 @@ public class TestBody extends JFrame {
             MenuItem itemFeed = new MenuItem("喂食");
             itemFeed.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    FeedPet f = FeedPet.getInstance();
-                    f.setVisible(true);
+                public void actionPerformed(ActionEvent actionEvent) {
+                    FeedPet feedFrame = FeedPet.getInstance();
+                    feedFrame.setVisible(true);
                 }
             });
 
