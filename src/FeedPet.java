@@ -1,76 +1,124 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
-public class FeedPet extends JFrame{
-    private static FeedPet f = null;
-    public static FeedPet getInstance(){
-        if(f==null){ f = new FeedPet(); }
-        return f;
+public class FeedPet extends JFrame {
+    /*
+     * 宠物喂食类，用于实现喂食功能
+     * */
+    private static HashMap<String, ArrayList<Integer>> foods = new HashMap<String, ArrayList<Integer>>();
+    private static FeedPet feedPet = null;
 
+    public static FeedPet getInstance() {
+        //单例模式
+        if (feedPet == null) {
+            feedPet = new FeedPet();
+        }
+        return feedPet;
     }
-    public FeedPet() {
-        JFrame frame = new JFrame("喂食");
-        frame.setSize(350, 200);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+    private FeedPet() {
+        //主构造方法，设定窗口基本参数
+        this.setSize(350, 200);
+        this.setTitle("宠物喂食");
+        this.setResizable(false);
 
         JPanel panel = new JPanel();
-        // 添加面板
-        frame.add(panel);
         placeComponents(panel);
-        frame.setVisible(true);
+        this.add(panel);
+
+        this.setVisible(true);
+        setFoods();
+        System.out.println(foods);
     }
 
     private static void placeComponents(JPanel panel) {
         panel.setLayout(null);
-        // 创建 JLabel
-        JLabel hungryLabel = new JLabel("饱食度: " + TestBody.mypet.getHungry_now()+ "/" +TestBody.mypet.getHungry_max());    //饱食度
-        hungryLabel.setBounds(20,20,80,25);
+        JLabel hungryLabel = new JLabel("饱食度：" + TestBody.mypet.getHungry_now() + "/" + TestBody.mypet.getHungry_max());
+        hungryLabel.setBounds(20, 20, 80, 25);
         panel.add(hungryLabel);
 
-        JLabel foodLabel = new JLabel("请选择食物: ");    //食物
-        foodLabel.setBounds(20,50,80,25);
+        //选择食物
+        JLabel foodLabel = new JLabel("选择食物: ");
+        foodLabel.setBounds(20, 50, 80, 25);
         panel.add(foodLabel);
-        JComboBox foodItem=new JComboBox();    //创建JComboBox
+
+        JComboBox foodItem = new JComboBox();    //创建选择条，用于选择食物
         foodItem.addItem("———————");
         foodItem.addItem("布丁");
         foodItem.addItem("巧克力蛋糕");
-        foodItem.addItem("珍珠奶茶");
-        foodItem.addItem("摩卡星冰乐");
-        foodItem.setBounds(100,50,120,25);
+        foodItem.setBounds(100, 50, 120, 25);
         panel.add(foodItem);
 
+        //剩余食物数显示
         JLabel restFoodLabel = new JLabel();
-        restFoodLabel.setBounds(230,50,80,25);
+        restFoodLabel.setBounds(230, 50, 80, 25);
         panel.add(restFoodLabel);
         restFoodLabel.setText("");
+        restFoodLabel.setVisible(true);
         foodItem.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if(e.getStateChange() == ItemEvent.SELECTED){
-                    restFoodLabel.setText("剩余数量: ");
-                    String a = restFoodLabel.getText();
-                    System.out.print(a);
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String selectedFood = (String) foodItem.getSelectedItem();
+                    if (selectedFood.equals("———————")) {
+                        restFoodLabel.setText("");
+                    } else {
+                        String restFood = "剩余数量：" + foods.get(selectedFood).get(0);
+                        restFoodLabel.setText(restFood);
+                    }
                 }
             }
         });
 
-        JLabel afterFeedLabel = new JLabel("饱食度增加xx点 ");
-        afterFeedLabel.setBounds(20,80,120,25);
+        JLabel afterFeedLabel = new JLabel("");
+        afterFeedLabel.setBounds(20, 80, 120, 25);
         panel.add(afterFeedLabel);
         afterFeedLabel.setVisible(false);
 
-        JButton feedButton = new JButton("点击喂食");  //喂食按钮
+        //喂食按钮操作
+        JButton feedButton = new JButton("点击喂食");
         feedButton.setBounds(125, 120, 100, 25);
         panel.add(feedButton);
         feedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                afterFeedLabel.setVisible(true);
+                int rest = foods.get((String) foodItem.getSelectedItem()).get(0);
+                String selectedFood = (String) foodItem.getSelectedItem();
+                if (!selectedFood.equals("———————") && foods.get(selectedFood).get(0) > 0) {
+                    foods.get(selectedFood).set(0, foods.get(selectedFood).get(0) - 1);
+                    restFoodLabel.setText("剩余数量：" + foods.get(selectedFood).get(0));
+                    changingImgThread ct = new changingImgThread(2);
+                    ct.start();
+                    int addHungry = foods.get(selectedFood).get(1);
+                    afterFeedLabel.setText("饱食度增加 " + addHungry);
+                    afterFeedLabel.setVisible(true);
+                    if(addHungry+TestBody.mypet.getHungry_now() <= TestBody.mypet.getHungry_max()){
+                        TestBody.mypet.setHungry_now(addHungry+TestBody.mypet.getHungry_now());
+                        System.out.println(TestBody.mypet.getHungry_now());
+                    }
+                }
             }
         });
     }
 
+    private void setFoods() {
+        //初始化食物信息
+        ArrayList<Integer> pudding = new ArrayList<Integer>();
+        ArrayList<Integer> chocolateCake = new ArrayList<Integer>();
+
+        pudding.add(3); //剩余数量
+        pudding.add(5); //增加饱食度
+        chocolateCake.add(1);
+        chocolateCake.add(20);
+
+        foods.put("布丁", pudding);
+        foods.put("巧克力蛋糕", chocolateCake);
+    }
 }
