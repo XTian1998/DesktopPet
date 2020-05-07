@@ -1,6 +1,8 @@
 import pets.Pet;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class TestBody extends JFrame {
@@ -10,7 +12,7 @@ public class TestBody extends JFrame {
     public static JLabel loveLabel;
     public static JLabel hungryLabel;
     public static JLabel imgLabel = new JLabel();
-    private static Pet mypet;
+    public static Pet mypet;
 
     public TestBody(){
         this.setSize(160,135);
@@ -82,10 +84,20 @@ public class TestBody extends JFrame {
             MenuItem itemExit = new MenuItem("退出");
             itemExit.addActionListener(e -> System.exit(0));
 
+            MenuItem itemFeed = new MenuItem("喂食");
+            itemFeed.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    FeedPet f = FeedPet.getInstance();
+                    f.setVisible(true);
+                }
+            });
+
             /*
             * 其他菜单栏功能在此处添加
             * */
 
+            popMenu.add(itemFeed);
             popMenu.add(itemExit);
 
             ImageIcon icon = new ImageIcon(imgDic + trayIconName);
