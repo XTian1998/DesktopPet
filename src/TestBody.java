@@ -117,6 +117,7 @@ public class TestBody extends JFrame {
     private void Load(){
         //读档
         try{
+            File saveDic = new File("save");
             File saveFile = new File("save/MyPet.sav");
             if(!saveDic.exists()){
                 saveDic.mkdir();
