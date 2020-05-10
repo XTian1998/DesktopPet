@@ -118,6 +118,9 @@ public class TestBody extends JFrame {
         //读档
         try{
             File saveFile = new File("save/MyPet.sav");
+            if(!saveDic.exists()){
+                saveDic.mkdir();
+            }
             if(!saveFile.exists()){
                 saveFile.createNewFile();
                 mypet = new Pet("kabi", 1, 50, 50);
