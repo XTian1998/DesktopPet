@@ -3,6 +3,7 @@ import pets.Pet;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import javax.swing.*;
 
 public class TestBody extends JFrame {
@@ -19,7 +20,7 @@ public class TestBody extends JFrame {
         this.getContentPane().setLayout(null);
         this.setTitle("电子宠物");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        mypet = new Pet("kabi", 1, 0, 0);
+        Load();
 
         //初始化图
         this.cgJLabelImg(imgLabel, mypet.getName() + imgUrl);
@@ -75,7 +76,13 @@ public class TestBody extends JFrame {
             PopupMenu popMenu = new PopupMenu();
 
             MenuItem itemExit = new MenuItem("退出");
-            itemExit.addActionListener(e -> System.exit(0));
+            itemExit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Save();
+                    System.exit(0);
+                }
+            });
 
             MenuItem itemFeed = new MenuItem("喂食");
             itemFeed.addActionListener(new ActionListener() {
@@ -107,7 +114,42 @@ public class TestBody extends JFrame {
         }
     }
 
-    public static void main(String[] args){
-        new TestBody();
+    private void Load(){
+        //读档
+        try{
+            File saveFile = new File("save/MyPet.sav");
+            if(!saveFile.exists()){
+                saveFile.createNewFile();
+                mypet = new Pet("kabi", 1, 50, 50);
+            }else {
+                FileInputStream fis = new FileInputStream(saveFile);
+                byte[] bys = new byte[20];
+                int len = fis.read(bys);
+                String data = new String(bys, 0, len);
+                fis.close();
+                String[] SplitData = data.split("\n");
+                mypet = new Pet(SplitData[0], Integer.parseInt(SplitData[1]), Integer.parseInt(SplitData[2]), Integer.parseInt(SplitData[3]));
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
+
+    private void Save() {
+        //存档
+        try{
+            FileOutputStream fos = new FileOutputStream("save/MyPet.sav");
+            String data = mypet.getName() + "\n" + mypet.getLevel() + "\n" + mypet.getLove_now() + "\n" + mypet.getHungry_now();
+            byte[] bys = data.getBytes();
+            fos.write(bys);
+            fos.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+            new TestBody();
+    }
+
 }
