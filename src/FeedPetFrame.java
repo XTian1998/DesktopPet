@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -8,22 +7,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-public class FeedPet extends JFrame {
+public class FeedPetFrame extends JFrame {
     /*
      * 宠物喂食类，用于实现喂食功能
      * */
     private static HashMap<String, ArrayList<Integer>> foods = new HashMap<String, ArrayList<Integer>>();
-    private static FeedPet feedPet = null;
+    private static FeedPetFrame feedPet = null;
 
-    public static FeedPet getInstance() {
+    public static FeedPetFrame getInstance() {
         //单例模式
         if (feedPet == null) {
-            feedPet = new FeedPet();
+            feedPet = new FeedPetFrame();
         }
         return feedPet;
     }
 
-    private FeedPet() {
+    private FeedPetFrame() {
         //主构造方法，设定窗口基本参数
         this.setSize(350, 200);
         this.setTitle("宠物喂食");
@@ -34,14 +33,16 @@ public class FeedPet extends JFrame {
         this.add(panel);
 
         this.setVisible(true);
-        setFoods();
+        if(foods == null) {
+            initFoods();
+        }
         System.out.println(foods);
     }
 
     private static void placeComponents(JPanel panel) {
         panel.setLayout(null);
         JLabel hungryLabel = new JLabel("饱食度：" + TestBody.mypet.getHungry_now() + "/" + TestBody.mypet.getHungry_max());
-        hungryLabel.setBounds(20, 20, 80, 25);
+        hungryLabel.setBounds(20, 20, 100, 25);
         panel.add(hungryLabel);
 
         //选择食物
@@ -103,12 +104,13 @@ public class FeedPet extends JFrame {
                         TestBody.mypet.setHungry_now(addHungry+TestBody.mypet.getHungry_now());
                         System.out.println(TestBody.mypet.getHungry_now());
                     }
+                    hungryLabel.setText("饱食度：" + TestBody.mypet.getHungry_now() + "/" + TestBody.mypet.getHungry_max());
                 }
             }
         });
     }
 
-    private void setFoods() {
+    private void initFoods() {
         //初始化食物信息
         ArrayList<Integer> pudding = new ArrayList<Integer>();
         ArrayList<Integer> chocolateCake = new ArrayList<Integer>();
@@ -116,6 +118,31 @@ public class FeedPet extends JFrame {
         pudding.add(3); //剩余数量
         pudding.add(5); //增加饱食度
         chocolateCake.add(1);
+        chocolateCake.add(20);
+
+        foods.put("布丁", pudding);
+        foods.put("巧克力蛋糕", chocolateCake);
+    }
+
+    public static int[] getFoodNum(){
+        int[] num = new int[2];
+        int i=0;
+        Set<String> keySet = foods.keySet();
+        for(String key : keySet){
+            ArrayList<Integer> arr = foods.get(key);
+            num[i] = arr.get(0);
+            i++;
+        }
+        return num;
+    }
+
+    public static void setFoodNum(int[] num){
+        ArrayList<Integer> pudding = new ArrayList<Integer>();
+        ArrayList<Integer> chocolateCake = new ArrayList<Integer>();
+
+        pudding.add(num[0]); //剩余数量
+        pudding.add(5); //增加饱食度
+        chocolateCake.add(num[1]);
         chocolateCake.add(20);
 
         foods.put("布丁", pudding);
