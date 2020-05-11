@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.Arrays;
 import javax.swing.*;
 
 public class TestBody extends JFrame {
@@ -51,7 +52,7 @@ public class TestBody extends JFrame {
         this.setBackground(new Color(0,0,0,0)); //背景透明
         this.setAlwaysOnTop(true); //永远保持在最顶端
 
-        MyMouseAdapter adapter = new MyMouseAdapter();
+        BodyMouseAdapter adapter = new BodyMouseAdapter();
         this.addMouseMotionListener(adapter);
         this.addMouseListener(adapter);
         setTray();
@@ -88,7 +89,7 @@ public class TestBody extends JFrame {
             itemFeed.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    FeedPet feedFrame = FeedPet.getInstance();
+                    FeedPetFrame feedFrame = FeedPetFrame.getInstance();
                     feedFrame.setVisible(true);
                 }
             });
@@ -133,6 +134,10 @@ public class TestBody extends JFrame {
                 fis.close();
                 String[] SplitData = data.split("\n");
                 mypet = new Pet(SplitData[0], Integer.parseInt(SplitData[1]), Integer.parseInt(SplitData[2]), Integer.parseInt(SplitData[3]));
+
+                //设定食物数量
+                int[] arr = Arrays.asList(Arrays.copyOfRange(SplitData, 4, 6)).stream().mapToInt(Integer::parseInt).toArray();
+                FeedPetFrame.setFoodNum(arr);
             }
         }catch (IOException e){
             e.printStackTrace();
@@ -143,7 +148,10 @@ public class TestBody extends JFrame {
         //存档
         try{
             FileOutputStream fos = new FileOutputStream("save/MyPet.sav");
-            String data = mypet.getName() + "\n" + mypet.getLevel() + "\n" + mypet.getLove_now() + "\n" + mypet.getHungry_now();
+            String data = mypet.getName() + "\n" + mypet.getLevel() + "\n" + mypet.getLove_now() + "\n" + mypet.getHungry_now() + "\n";
+            for(int i : FeedPetFrame.getFoodNum()){
+                data += i + "\n";
+            }
             byte[] bys = data.getBytes();
             fos.write(bys);
             fos.close();
