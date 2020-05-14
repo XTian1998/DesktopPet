@@ -33,7 +33,7 @@ public class FeedPetFrame extends JFrame {
         this.add(panel);
 
         this.setVisible(true);
-        if(foods == null) {
+        if(foods.size() == 0) {
             initFoods();
         }
         System.out.println(foods);
