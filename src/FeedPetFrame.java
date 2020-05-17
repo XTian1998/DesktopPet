@@ -27,6 +27,7 @@ public class FeedPetFrame extends JFrame {
         this.setSize(350, 200);
         this.setTitle("宠物喂食");
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         placeComponents(panel);
@@ -83,7 +84,7 @@ public class FeedPetFrame extends JFrame {
         panel.add(afterFeedLabel);
         afterFeedLabel.setVisible(false);
 
-        javax.swing.Timer timer = new javax.swing.Timer(2000, new ActionListener() {
+        Timer timer = new Timer(2000, new ActionListener() {
             //延时器
             @Override
             public void actionPerformed(ActionEvent e) {
