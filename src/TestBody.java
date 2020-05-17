@@ -137,11 +137,11 @@ public class TestBody extends JFrame {
                 saveFile.createNewFile();
                 mypet = new Pet("kabi", 1, 50, 50);
             }else {
-                FileInputStream fis = new FileInputStream(saveFile);
-                byte[] bys = new byte[20];
-                int len = fis.read(bys);
-                String data = new String(bys, 0, len);
-                fis.close();
+                BufferedReader br = new BufferedReader(new FileReader(saveFile));
+                char[] inf = new char[1024];
+                int len = br.read(inf);
+                String data = new String(inf, 0, len);
+                br.close();
                 String[] SplitData = data.split("\n");
                 mypet = new Pet(SplitData[0], Integer.parseInt(SplitData[1]), Integer.parseInt(SplitData[2]), Integer.parseInt(SplitData[3]));
 
@@ -157,14 +157,13 @@ public class TestBody extends JFrame {
     private void Save() {
         //存档
         try{
-            FileOutputStream fos = new FileOutputStream("save/MyPet.sav");
+            BufferedWriter bw = new BufferedWriter(new FileWriter("save/MyPet.sav"));
             String data = mypet.getName() + "\n" + mypet.getLevel() + "\n" + mypet.getLove_now() + "\n" + mypet.getHungry_now() + "\n";
             for(int i : FeedPetFrame.getFoodNum()){
                 data += i + "\n";
             }
-            byte[] bys = data.getBytes();
-            fos.write(bys);
-            fos.close();
+            bw.write(data);
+            bw.close();
         }catch (IOException e){
             e.printStackTrace();
         }
