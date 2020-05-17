@@ -83,6 +83,14 @@ public class FeedPetFrame extends JFrame {
         panel.add(afterFeedLabel);
         afterFeedLabel.setVisible(false);
 
+        javax.swing.Timer timer = new javax.swing.Timer(2000, new ActionListener() {
+            //延时器
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                afterFeedLabel.setVisible(false);   //将“饱食度增加”Label隐藏
+            }
+        });
+
         //喂食按钮操作
         JButton feedButton = new JButton("点击喂食");
         feedButton.setBounds(125, 120, 100, 25);
@@ -93,19 +101,33 @@ public class FeedPetFrame extends JFrame {
                 int rest = foods.get((String) foodItem.getSelectedItem()).get(0);
                 String selectedFood = (String) foodItem.getSelectedItem();
                 if (!selectedFood.equals("———————") && foods.get(selectedFood).get(0) > 0) {
-                    foods.get(selectedFood).set(0, foods.get(selectedFood).get(0) - 1);
-                    restFoodLabel.setText("剩余数量：" + foods.get(selectedFood).get(0));
                     changingImgThread ct = new changingImgThread(2);
-                    ct.start();
                     int addHungry = foods.get(selectedFood).get(1);
                     afterFeedLabel.setText("饱食度增加 " + addHungry);
-                    afterFeedLabel.setVisible(true);
+
                     if(addHungry+TestBody.mypet.getHungry_now() <= TestBody.mypet.getHungry_max()){
+                        ct.start();
+                        foods.get(selectedFood).set(0, foods.get(selectedFood).get(0) - 1);
                         TestBody.mypet.setHungry_now(addHungry+TestBody.mypet.getHungry_now());
                         System.out.println(TestBody.mypet.getHungry_now());
+                        afterFeedLabel.setVisible(true);
+                        timer.start();
                     }
+                    else if(TestBody.mypet.getHungry_now() < TestBody.mypet.getHungry_max() && addHungry > (TestBody.mypet.getHungry_max()-TestBody.mypet.getHungry_now())){
+                        ct.start();
+                        afterFeedLabel.setText("饱食度增加 " + (TestBody.mypet.getHungry_max()-TestBody.mypet.getHungry_now()));
+                        foods.get(selectedFood).set(0, foods.get(selectedFood).get(0) - 1);
+                        TestBody.mypet.setHungry_now(TestBody.mypet.getHungry_max());
+                        System.out.println(TestBody.mypet.getHungry_now());
+                        afterFeedLabel.setVisible(true);
+                        timer.start();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"吃不下啦！！！！！");
+                    }
+                    restFoodLabel.setText("剩余数量：" + foods.get(selectedFood).get(0));
                     hungryLabel.setText("饱食度：" + TestBody.mypet.getHungry_now() + "/" + TestBody.mypet.getHungry_max());
-                }
+                }else{JOptionPane.showMessageDialog(null,"没吃的啦QAQ");}
             }
         });
     }
