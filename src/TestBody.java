@@ -94,10 +94,20 @@ public class TestBody extends JFrame {
                 }
             });
 
+            MenuItem itemPiano = new MenuItem("弹琴");
+            itemPiano.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    PianoFrame pianoFrame = PianoFrame.getInstance();
+                    pianoFrame.setVisible(true);
+                }
+            });
+
             /*
             * 其他菜单栏功能在此处添加
             * */
 
+            popMenu.add(itemPiano);
             popMenu.add(itemFeed);
             popMenu.add(itemExit);
 
