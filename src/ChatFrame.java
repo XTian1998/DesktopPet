@@ -2,8 +2,7 @@ import com.google.gson.Gson;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,6 +47,7 @@ public class ChatFrame extends JFrame {
         logArea = new JTextArea(20, 30);
         logArea.setBackground(Color.WHITE);
         logArea.setEditable(false);
+        logArea.setLineWrap(true);
         JScrollPane scrPane = new JScrollPane(logArea);
         logPanel.add(scrPane);
 
@@ -80,9 +80,26 @@ public class ChatFrame extends JFrame {
                 logArea.setText("");
             }
         });
+        msgArea.addKeyListener(new KeyListener() {
+            //对信息输入框进行回车监听，实现回车发送信息
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if ((char) e.getKeyChar() == KeyEvent.VK_ENTER) {
+                    msgArea.setText(msgArea.getText().replace("\n", ""));
+                    sendMsgBtn.doClick();
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+            }
+        });
         this.add(logPanel, BorderLayout.NORTH);
         this.add(sendPanel, BorderLayout.CENTER);
-
         logArea.setText(TestBody.mypet.getName() + "对你说：我们开始聊天吧！\n");
     }
 }
