@@ -103,10 +103,20 @@ public class TestBody extends JFrame {
                 }
             });
 
+            MenuItem itemChat = new MenuItem("对话");
+            itemChat.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    ChatFrame chatFrame = ChatFrame.getInstance();
+                    chatFrame.setVisible(true);
+                }
+            });
+
             /*
             * 其他菜单栏功能在此处添加
             * */
 
+            popMenu.add(itemChat);
             popMenu.add(itemPiano);
             popMenu.add(itemFeed);
             popMenu.add(itemExit);
