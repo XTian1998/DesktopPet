@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MyMouseAdapter extends MouseAdapter {
+public class BodyMouseAdapter extends MouseAdapter {
     private int offsetX, offsetY;
     private changingImgThread ct;
     public void mouseDragged(MouseEvent e){
