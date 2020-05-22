@@ -103,6 +103,7 @@ public class FeedPetFrame extends JFrame {
                 String selectedFood = (String) foodItem.getSelectedItem();
                 if (!selectedFood.equals("———————") && foods.get(selectedFood).get(0) > 0) {
                     changingImgThread ct = new changingImgThread(2);
+                    changingImgThread cs = new changingImgThread(3);
                     int addHungry = foods.get(selectedFood).get(1);
                     afterFeedLabel.setText("饱食度增加 " + addHungry);
 
@@ -126,6 +127,18 @@ public class FeedPetFrame extends JFrame {
                     else{
                         JOptionPane.showMessageDialog(null,"吃不下啦！！！！！");
                     }
+                    
+                    if(TestBody.mypet.getHungry_now() >= 60 && TestBody.mypet.getHungry_now() <= 80){ //亲密度增加判定
+                        cs.start();
+                        TestBody.mypet.setLove_now(TestBody.mypet.getLove_now() + 2);
+                        System.out.println(TestBody.mypet.getLove_now());
+                    }
+                    else {
+                        cs.start();
+                        TestBody.mypet.setLove_now(TestBody.mypet.getLove_now() - 1);
+                        System.out.println(TestBody.mypet.getLove_now());
+                    }
+                    
                     restFoodLabel.setText("剩余数量：" + foods.get(selectedFood).get(0));
                     hungryLabel.setText("饱食度：" + TestBody.mypet.getHungry_now() + "/" + TestBody.mypet.getHungry_max());
                 }else{JOptionPane.showMessageDialog(null,"没吃的啦QAQ");}
