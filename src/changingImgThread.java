@@ -8,7 +8,7 @@ public class changingImgThread extends Thread {
     public void run(){
         int i=1;
         try{
-            while(true){
+            while(!isInterrupted()){
                 if(actionType == 1){
                     //拖拽动作
                     imgUrl = "_drag"+ i +".png";
