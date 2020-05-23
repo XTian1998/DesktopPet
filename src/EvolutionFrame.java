@@ -1,8 +1,11 @@
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class EvolutionFrame extends JFrame {
     private static EvolutionFrame evPet = null;
+    private static ImageIcon beforeEv;
+    private static ImageIcon afterEv;
 
     public static EvolutionFrame getInstance() {
         //单例模式
@@ -22,17 +25,6 @@ public class EvolutionFrame extends JFrame {
         JPanel panel = new JPanel();
         placeComponents(panel);
         this.add(panel);
-
-        ck();
-    }
-
-    public void ck(){
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                evPet = null;
-            }
-        });
     }
 
     private static void placeComponents(JPanel panel) {
@@ -43,13 +35,14 @@ public class EvolutionFrame extends JFrame {
 
         JLabel bLabel = new JLabel();
         bLabel.setBounds(20, 10, 120, 120);
-        ImageIcon beforeEv = new ImageIcon(TestBody.imgDic + "kabi" + TestBody.mypet.getLevel_now() + "_default.png");
+
+        beforeEv = new ImageIcon(TestBody.imgDic + "kabi" + TestBody.mypet.getLevel_now() + "_default.png");
         bLabel.setIcon(beforeEv);
         panel.add(bLabel);
 
         JLabel aLabel = new JLabel();
         aLabel.setBounds(180, 10, 120, 120);
-        ImageIcon afterEv = new ImageIcon(TestBody.imgDic + "kabi"+ (TestBody.mypet.getLevel_now()+1) +"_default.png");
+        afterEv = new ImageIcon(TestBody.imgDic + "kabi"+ (TestBody.mypet.getLevel_now()+1) +"_default.png");
         aLabel.setIcon(afterEv);
         panel.add(aLabel);
 
@@ -75,7 +68,9 @@ public class EvolutionFrame extends JFrame {
                         TestBody.mypet.setLove_now(0);
                         TestBody.mypet.setLevel_now(TestBody.mypet.getLevel_now()+1);
                         loveLabel.setText("亲密度：" + TestBody.mypet.getLove_now() + "/" + TestBody.mypet.getLove_max());
+                        beforeEv = new ImageIcon(TestBody.imgDic + "kabi" + TestBody.mypet.getLevel_now() + "_default.png");
                         bLabel.setIcon(beforeEv);
+                        afterEv = new ImageIcon(TestBody.imgDic + "kabi"+ (TestBody.mypet.getLevel_now()+1) +"_default.png");
                         aLabel.setIcon(afterEv);
                         JOptionPane.showMessageDialog(null,"你的宠物进化啦^-^");
                     }
@@ -89,5 +84,4 @@ public class EvolutionFrame extends JFrame {
             }
         });
     }
-
 }
