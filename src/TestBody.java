@@ -24,7 +24,7 @@ public class TestBody extends JFrame {
         Load();
 
         //初始化图
-        this.cgJLabelImg(imgLabel, mypet.getName() + imgUrl);
+        this.cgJLabelImg(imgLabel, mypet.getName() + mypet.getLevel() +imgUrl);
         this.add(imgLabel);
 
         //添加亲密度信息

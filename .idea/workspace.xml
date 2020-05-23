@@ -14,28 +14,50 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="jdkForImporter" value="openjdk-14" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1aT0h6OH9GS7OkKe5Z0EpdvY8dz" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/image" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ztx_l\IntelliJIDEAProjects\DesktopPet\image" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Download\IDEA\IdeaProjects\DesktopPet\image" />
+      <recent name="D:\Download\IDEA\IdeaProjects\DesktopPet\piano" />
+      <recent name="D:\Download\IDEA\IdeaProjects\DesktopPet\out\production\DesktopPet\META-INF" />
+      <recent name="D:\Download\IDEA\IdeaProjects\DesktopPet\out\production\DesktopPet" />
+      <recent name="D:\Download\IDEA\IdeaProjects\DesktopPet\src\pets" />
     </key>
   </component>
   <component name="RunManager" selected="Application.TestBody">
@@ -82,25 +104,49 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1860" height="261" key="GridCell.Tab.0.bottom" timestamp="1587276129462">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="608" y="352" key="#Notifications" timestamp="1590048478152">
+      <screen x="0" y="0" width="1440" height="920" />
     </state>
+    <state x="608" y="352" key="#Notifications/0.0.1440.920@0.0.1440.920" timestamp="1590048478152" />
+    <state x="664" y="256" key="FileChooserDialogImpl" timestamp="1590143966194">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="664" y="256" key="FileChooserDialogImpl/0.0.1440.920@0.0.1440.920" timestamp="1590143966194" />
+    <state width="1419" height="225" key="GridCell.Tab.0.bottom" timestamp="1590167282987">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state width="1419" height="225" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1590167282987" />
     <state width="1860" height="261" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587276129462" />
-    <state width="1860" height="261" key="GridCell.Tab.0.center" timestamp="1587276129462">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1419" height="225" key="GridCell.Tab.0.center" timestamp="1590167282987">
+      <screen x="0" y="0" width="1440" height="920" />
     </state>
+    <state width="1419" height="225" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1590167282987" />
     <state width="1860" height="261" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587276129462" />
-    <state width="1860" height="261" key="GridCell.Tab.0.left" timestamp="1587276129462">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1419" height="225" key="GridCell.Tab.0.left" timestamp="1590167282987">
+      <screen x="0" y="0" width="1440" height="920" />
     </state>
+    <state width="1419" height="225" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1590167282987" />
     <state width="1860" height="261" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587276129462" />
-    <state width="1860" height="261" key="GridCell.Tab.0.right" timestamp="1587276129462">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1419" height="225" key="GridCell.Tab.0.right" timestamp="1590167282987">
+      <screen x="0" y="0" width="1440" height="920" />
     </state>
+    <state width="1419" height="225" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1590167282987" />
     <state width="1860" height="261" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587276129462" />
+    <state x="32" y="69" key="SettingsEditor" timestamp="1590052730545">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="32" y="69" key="SettingsEditor/0.0.1440.920@0.0.1440.920" timestamp="1590052730545" />
     <state x="652" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1587221903717">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="652" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587221903717" />
+    <state x="150" y="140" key="new project wizard" timestamp="1590039353243">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="150" y="140" key="new project wizard/0.0.1440.920@0.0.1440.920" timestamp="1590039353243" />
+    <state x="647" y="229" width="672" height="678" key="search.everywhere.popup" timestamp="1590166378534">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="647" y="229" width="672" height="678" key="search.everywhere.popup/0.0.1440.920@0.0.1440.920" timestamp="1590166378534" />
   </component>
 </project>

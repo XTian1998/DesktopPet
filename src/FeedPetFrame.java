@@ -1,3 +1,5 @@
+import pets.Pet;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -107,7 +109,7 @@ public class FeedPetFrame extends JFrame {
                     int addHungry = foods.get(selectedFood).get(1);
                     afterFeedLabel.setText("饱食度增加 " + addHungry);
 
-                    if(addHungry+TestBody.mypet.getHungry_now() <= TestBody.mypet.getHungry_max()){
+                    if(addHungry+TestBody.mypet.getHungry_now() <= TestBody.mypet.getHungry_max()){ //饱食度增加判定
                         ct.start();
                         foods.get(selectedFood).set(0, foods.get(selectedFood).get(0) - 1);
                         TestBody.mypet.setHungry_now(addHungry+TestBody.mypet.getHungry_now());
@@ -127,20 +129,18 @@ public class FeedPetFrame extends JFrame {
                     else{
                         JOptionPane.showMessageDialog(null,"吃不下啦！！！！！");
                     }
-                    
+
+                    cs.start();
                     if(TestBody.mypet.getHungry_now() >= 60 && TestBody.mypet.getHungry_now() <= 80){ //亲密度增加判定
-                        cs.start();
-                        TestBody.mypet.setLove_now(TestBody.mypet.getLove_now() + 2);
-                        System.out.println(TestBody.mypet.getLove_now());
+                        TestBody.mypet.increaseLove(2);
                     }
                     else {
-                        cs.start();
-                        TestBody.mypet.setLove_now(TestBody.mypet.getLove_now() - 1);
-                        System.out.println(TestBody.mypet.getLove_now());
+                        TestBody.mypet.increaseLove(-1);
                     }
-                    
+
                     restFoodLabel.setText("剩余数量：" + foods.get(selectedFood).get(0));
                     hungryLabel.setText("饱食度：" + TestBody.mypet.getHungry_now() + "/" + TestBody.mypet.getHungry_max());
+
                 }else{JOptionPane.showMessageDialog(null,"没吃的啦QAQ");}
             }
         });

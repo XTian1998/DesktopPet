@@ -34,9 +34,7 @@ public class Pet {
         return hungry_max;
     }
 
-    public int getHungry_now() {
-        return hungry_now;
-    }
+    public int getHungry_now() { return hungry_now; }
 
     public int getLove_max() {
         return love_max;
@@ -59,5 +57,17 @@ public class Pet {
 
     public void setLove_now(int love_now) {
         this.love_now = love_now;
+    }
+
+    public void increaseLove(int love){
+        //增加亲密度的方法，love<0 代表降低亲密度
+        if(this.love_now + love < 0){
+            this.love_now = 0;
+        } else if(this.love_now + love <= this.love_max){
+            this.love_now += love;
+        } else if(this.love_now + love > this.love_max){
+            this.love_now = this.love_max;
+        }
+
     }
 }

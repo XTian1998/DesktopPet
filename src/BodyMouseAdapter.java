@@ -11,7 +11,7 @@ public class BodyMouseAdapter extends MouseAdapter {
     }
     public void mouseReleased(MouseEvent e){
         ct.interrupt();
-        TestBody.cgJLabelImg(TestBody.imgLabel, "kabi_default.png");
+        TestBody.cgJLabelImg(TestBody.imgLabel, "kabi" + TestBody.mypet.getLevel() +"_default.png");
     }
     public void mousePressed(MouseEvent e){
         offsetX = e.getX();
