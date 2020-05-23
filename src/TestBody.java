@@ -24,7 +24,7 @@ public class TestBody extends JFrame {
         Load();
 
         //初始化图
-        this.cgJLabelImg(imgLabel, mypet.getName() + mypet.getLevel() +imgUrl);
+        this.cgJLabelImg(imgLabel, mypet.getName() + mypet.getLevel_now() +imgUrl);
         this.add(imgLabel);
 
         //添加亲密度信息
@@ -112,6 +112,15 @@ public class TestBody extends JFrame {
                 }
             });
 
+            MenuItem itemEv = new MenuItem("进化");
+            itemEv.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    EvolutionFrame evFrame = EvolutionFrame.getInstance();
+                    evFrame.setVisible(true);
+                }
+            });
+
             /*
             * 其他菜单栏功能在此处添加
             * */
@@ -119,6 +128,7 @@ public class TestBody extends JFrame {
             popMenu.add(itemChat);
             popMenu.add(itemPiano);
             popMenu.add(itemFeed);
+            popMenu.add(itemEv);
             popMenu.add(itemExit);
 
             ImageIcon icon = new ImageIcon(imgDic + trayIconName);
@@ -168,7 +178,7 @@ public class TestBody extends JFrame {
         //存档
         try{
             BufferedWriter bw = new BufferedWriter(new FileWriter("save/MyPet.sav"));
-            String data = mypet.getName() + "\n" + mypet.getLevel() + "\n" + mypet.getLove_now() + "\n" + mypet.getHungry_now() + "\n";
+            String data = mypet.getName() + "\n" + mypet.getLevel_now() + "\n" + mypet.getLove_now() + "\n" + mypet.getHungry_now() + "\n";
             for(int i : FeedPetFrame.getFoodNum()){
                 data += i + "\n";
             }

@@ -13,7 +13,7 @@ public class changingImgThread extends Thread {
                 if(actionType == 1){
                     //拖拽动作
                     imgUrl = "_drag"+ i +".png";
-                    TestBody.cgJLabelImg(TestBody.imgLabel, "kabi"+TestBody.mypet.getLevel()+imgUrl);
+                    TestBody.cgJLabelImg(TestBody.imgLabel, "kabi"+TestBody.mypet.getLevel_now()+imgUrl);
                     i++;
                     if(i>2) i=1;
                     Thread.sleep(200);
@@ -21,10 +21,10 @@ public class changingImgThread extends Thread {
                 else if(actionType == 2){
                     //进食动作
                     imgUrl = "_eat" + i + ".png";
-                    TestBody.cgJLabelImg(TestBody.imgLabel, "kabi"+TestBody.mypet.getLevel()+imgUrl);
+                    TestBody.cgJLabelImg(TestBody.imgLabel, "kabi"+TestBody.mypet.getLevel_now()+imgUrl);
                     i++;
                     if(i>6) {
-                        TestBody.cgJLabelImg(TestBody.imgLabel, "kabi"+TestBody.mypet.getLevel()+"_default.png");
+                        TestBody.cgJLabelImg(TestBody.imgLabel, "kabi"+TestBody.mypet.getLevel_now()+"_default.png");
                         break;
                     }
                     Thread.sleep(200);
