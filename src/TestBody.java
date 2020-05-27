@@ -43,9 +43,15 @@ public class TestBody extends JFrame {
         hungryLabel.setVisible(false);
         this.add(hungryLabel);
 
-        //信息更新线程
+        //显示信息更新线程
         InfoUpdateThread iut = new InfoUpdateThread(this);
         iut.start();
+
+        //亲密度与饱食度自动更新线程
+        HL_UpdatingThread hungryThread = new HL_UpdatingThread(300000, 1); //饱食度每5分钟更新一次
+        HL_UpdatingThread loveThread = new HL_UpdatingThread(600000, 2); //亲密度每10分钟更新一次
+        hungryThread.start();
+        loveThread.start();
 
         //框体透明
         this.setUndecorated(true); //取消窗口标题栏
