@@ -3,6 +3,8 @@ import pets.Pet;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.Arrays;
 import javax.swing.*;
@@ -78,76 +80,88 @@ public class TestBody extends JFrame {
     private void setTray(){
         //任务栏托盘图标显示和功能添加
         if(SystemTray.isSupported()){
-            SystemTray tray = SystemTray.getSystemTray();
 
-            PopupMenu popMenu = new PopupMenu();
-
-            MenuItem itemExit = new MenuItem("退出");
-            itemExit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    Save();
-                    System.exit(0);
-                }
-            });
-
-            MenuItem itemFeed = new MenuItem("喂食");
-            itemFeed.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    FeedPetFrame feedFrame = FeedPetFrame.getInstance();
-                    feedFrame.setVisible(true);
-                }
-            });
-
-            MenuItem itemPiano = new MenuItem("弹琴");
-            itemPiano.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    PianoFrame pianoFrame = PianoFrame.getInstance();
-                    pianoFrame.setVisible(true);
-                }
-            });
-
-            MenuItem itemChat = new MenuItem("对话");
-            itemChat.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    ChatFrame chatFrame = ChatFrame.getInstance();
-                    chatFrame.setVisible(true);
-                }
-            });
-
-            MenuItem itemEv = new MenuItem("进化");
-            itemEv.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    EvolutionFrame evFrame = EvolutionFrame.getInstance();
-                    evFrame.setVisible(true);
-                }
-            });
-
-            /*
-            * 其他菜单栏功能在此处添加
-            * */
-
-            popMenu.add(itemChat);
-            popMenu.add(itemPiano);
-            popMenu.add(itemFeed);
-            popMenu.add(itemEv);
-            popMenu.add(itemExit);
 
             ImageIcon icon = new ImageIcon(imgDic + trayIconName);
             Image img = icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT);
 
-            TrayIcon trayIcon = new TrayIcon(img, "桌面萌王", popMenu);
+            TrayIcon trayIcon = new TrayIcon(img, "桌面萌王");
             trayIcon.setImageAutoSize(true);
 
-            try{
-                tray.add(trayIcon);
-            }catch(AWTException e){
+            JPopupMenu popMenu = new JPopupMenu();
+
+            try {
+                SystemTray.getSystemTray().add(trayIcon);
+            } catch (AWTException e) {
                 e.printStackTrace();
             }
+
+            trayIcon.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    if(e.isPopupTrigger()){
+                        final JPopupMenu pop = new JPopupMenu();
+                        JMenuItem itemExit = new JMenuItem("退出");
+                        itemExit.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                Save();
+                                System.exit(0);
+                            }
+                        });
+
+                        JMenuItem itemFeed = new JMenuItem("喂食");
+                        itemFeed.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent actionEvent) {
+                                FeedPetFrame feedFrame = FeedPetFrame.getInstance();
+                                feedFrame.setVisible(true);
+                            }
+                        });
+
+                        JMenuItem itemPiano = new JMenuItem("弹琴");
+                        itemPiano.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent actionEvent) {
+                                PianoFrame pianoFrame = PianoFrame.getInstance();
+                                pianoFrame.setVisible(true);
+                            }
+                        });
+
+                        JMenuItem itemChat = new JMenuItem("对话");
+                        itemChat.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent actionEvent) {
+                                ChatFrame chatFrame = ChatFrame.getInstance();
+                                chatFrame.setVisible(true);
+                            }
+                        });
+
+                        JMenuItem itemEv = new JMenuItem("进化");
+                        itemEv.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent actionEvent) {
+                                EvolutionFrame evFrame = EvolutionFrame.getInstance();
+                                evFrame.setVisible(true);
+                            }
+                        });
+
+                        /*
+                         * 其他菜单栏功能在此处添加
+                         * */
+
+                        pop.add(itemFeed);
+                        pop.add(itemPiano);
+                        pop.add(itemChat);
+                        pop.add(itemEv);
+                        pop.add(itemExit);
+
+                        pop.setLocation(e.getX(),e.getY());
+                        pop.setInvoker(pop);
+                        pop.setVisible(true);
+                    }
+                }
+            });
         }
     }
 
